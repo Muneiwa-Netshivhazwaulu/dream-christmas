@@ -26,21 +26,18 @@
         }
 
         .container {
-            width: 90%;
-            max-width: 600px;
+            width: 95%;
+            max-width: 650px;
             background: #1a1a1a;
             padding: 40px;
             border-radius: 20px;
             border: 2px solid var(--neon-purple);
-            box-shadow: 0 0 15px var(--neon-purple), inset 0 0 5px var(--neon-purple);
+            box-shadow: 0 0 20px var(--neon-purple);
             text-align: center;
         }
 
-        h1 {
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-            font-size: 2.5rem;
-        }
+        h1 { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
+        h3 { color: var(--neon-purple); }
 
         .step { display: none; }
         .step.active { display: block; animation: fadeIn 0.5s ease; }
@@ -51,143 +48,118 @@
         }
 
         input, select {
-            background: #2a2a2a;
-            border: 1px solid var(--neon-blue);
-            color: white;
-            padding: 12px;
-            width: 80%;
-            border-radius: 8px;
-            margin: 20px 0;
-            outline: none;
+            background: #2a2a2a; border: 1px solid var(--neon-blue);
+            color: white; padding: 12px; width: 80%; border-radius: 8px; margin: 20px 0;
         }
 
         button {
-            background: transparent;
-            color: var(--neon-green);
-            border: 2px solid var(--neon-green);
-            padding: 12px 30px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px var(--neon-green);
+            background: transparent; color: var(--neon-green);
+            border: 2px solid var(--neon-green); padding: 12px 30px;
+            border-radius: 50px; cursor: pointer; font-weight: bold;
+            transition: 0.3s; box-shadow: 0 0 10px var(--neon-green);
         }
 
-        button:hover {
-            background: var(--neon-green);
-            color: black;
-            box-shadow: 0 0 25px var(--neon-green);
-        }
+        button:hover { background: var(--neon-green); color: black; box-shadow: 0 0 25px var(--neon-green); }
 
+        /* Grid for choices */
         .img-grid {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
             margin: 20px 0;
         }
 
         .choice-card {
-            cursor: pointer;
-            transition: 0.3s;
-            border: 2px solid transparent;
-            border-radius: 10px;
-            padding: 5px;
+            cursor: pointer; transition: 0.3s;
+            border: 2px solid #333; border-radius: 10px; padding: 10px;
+            background: #222;
         }
 
-        .choice-card:hover {
-            border-color: var(--neon-red);
-            box-shadow: 0 0 15px var(--neon-red);
-        }
+        .choice-card:hover { border-color: var(--neon-red); box-shadow: 0 0 15px var(--neon-red); }
 
-        .choice-img {
-            width: 150px;
-            height: 110px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
+        .choice-img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; }
 
         .special-msg {
             color: var(--neon-red);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             text-shadow: 0 0 10px var(--neon-red);
-            margin-top: 10px;
+            border: 1px dashed var(--neon-red);
+            padding: 10px;
+            margin: 10px 0;
         }
 
-        .summary-box {
-            text-align: left;
-            line-height: 1.6;
-            border-left: 3px solid var(--neon-blue);
-            padding-left: 20px;
-            margin: 20px 0;
-        }
+        .summary-box { text-align: left; border-left: 3px solid var(--neon-blue); padding-left: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="step1" class="step active">
-        <h1>🎄 Perfect Christmas</h1>
-        <p>Enter your name to begin the journey...</p>
+        <h1>🎄 Dream Christmas</h1>
+        <p>Enter your name to unlock your holiday vibe...</p>
         <input type="text" id="userName" placeholder="Your Name">
         <br>
-        <button onclick="nextStep(2)">Start</button>
+        <button onclick="nextStep(2)">Enter</button>
     </div>
 
     <div id="step2" class="step">
         <div id="greetingArea"></div>
-        <h3>Who is by your side?</h3>
+        <p>Who is spending this perfect day with you?</p>
         <div class="img-grid">
-            <div class="choice-card" onclick="saveChoice('company', 'Alone'); nextStep(3);">
-                <img src="https://images.unsplash.com/photo-1511300633951-f9e72a6e97c0?auto=format&fit=crop&w=300" class="choice-img">
+            <div class="choice-card" onclick="handleCompany('Alone')">
+                <img src="https://images.unsplash.com/photo-1511300633951-f9e72a6e97c0?w=300" class="choice-img">
                 <p>Peacefully Alone</p>
             </div>
-            <div class="choice-card" onclick="saveChoice('company', 'Family & Friends'); nextStep(3);">
-                <img src="https://images.unsplash.com/photo-1543589077-47d81606c1ad?auto=format&fit=crop&w=300" class="choice-img">
+            <div class="choice-card" onclick="handleCompany('Family & Friends')">
+                <img src="https://images.unsplash.com/photo-1543589077-47d81606c1ad?w=300" class="choice-img">
                 <p>Family & Friends</p>
+            </div>
+            <div class="choice-card" onclick="handleCompany('A Secret Crush')">
+                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=300" class="choice-img">
+                <p>A Secret Crush</p>
+            </div>
+            <div class="choice-card" onclick="handleCompany('Given')">
+                <img src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?w=300" class="choice-img">
+                <p style="color: var(--neon-green); font-weight: bold;">Given ✨</p>
             </div>
         </div>
     </div>
 
     <div id="step3" class="step">
-        <h3 style="color: var(--neon-purple)">Setting the Vibe</h3>
+        <h3>Setting the Atmosphere</h3>
         <p>What is the weather like?</p>
         <select id="weather">
             <option value="Snowing and freezing">Heavy Snowing ❄️</option>
             <option value="Cold but sunny">Crisp & Sunny ☀️</option>
             <option value="Rainy and cozy">Rainy & Cozy ☕</option>
-            <option value="Warm and tropical">Tropical Heat 🌴</option>
         </select>
         <p>Favorite time of day?</p>
         <select id="timeOfDay">
-            <option value="Christmas Morning">Christmas Morning (Presents!)</option>
+            <option value="Christmas Morning">Christmas Morning</option>
             <option value="The Afternoon Feast">The Afternoon Feast</option>
-            <option value="A Late Night Walk">A Late Night Walk</option>
-            <option value="Midnight Mass">Midnight Mass</option>
+            <option value="Late Night Stargazing">Late Night Stargazing</option>
         </select>
         <br><br>
-        <button onclick="saveVibe(); nextStep(4);">Next</button>
+        <button onclick="saveVibe(); nextStep(4);">Almost there...</button>
     </div>
 
     <div id="step4" class="step">
-        <h3>Where in the world?</h3>
-        <p>Select your dream destination:</p>
+        <h3>The Destination</h3>
         <select id="country">
-            <option value="Japan">Japan 🇯🇵 (Tokyo Lights)</option>
-            <option value="Finland">Finland 🇫🇮 (Lapland)</option>
-            <option value="Switzerland">Switzerland 🇨🇭 (The Alps)</option>
-            <option value="Iceland">Iceland 🇮🇸 (Northern Lights)</option>
-            <option value="New York">USA 🇺🇸 (NYC)</option>
+            <option value="Japan">Japan 🇯🇵</option>
+            <option value="Finland">Finland 🇫🇮</option>
+            <option value="Switzerland">Switzerland 🇨🇭</option>
+            <option value="New York">USA 🇺🇸</option>
         </select>
         <br><br>
-        <button onclick="finish();">Create My Dream</button>
+        <button onclick="finish();">Generate My Dream</button>
     </div>
 
     <div id="step5" class="step">
-        <h1 style="color: var(--neon-green)">Your Dream Is Ready</h1>
+        <h1 style="color: var(--neon-green)">The Perfect Plan</h1>
         <div id="summaryText" class="summary-box"></div>
         <p>✨ Merry Christmas! ✨</p>
-        <button onclick="location.reload()">Reset Dream</button>
+        <button onclick="location.reload()">Start Over</button>
     </div>
 </div>
 
@@ -200,19 +172,29 @@
             choices.name = name;
             const greetingEl = document.getElementById('greetingArea');
             
+            // Logic for Everyone vs Anamila/Amila
             if (name.toLowerCase() === "anamila" || name.toLowerCase() === "amila") {
-                greetingEl.innerHTML = `<h1>Hello ${name}</h1><div class="special-msg">From Given</div>`;
+                greetingEl.innerHTML = `
+                    <div class="special-msg">✨ A very special Christmas wish for you, ${name}! ✨</div>
+                    <h3 style="color: white">From: Given</h3>
+                `;
             } else {
-                greetingEl.innerHTML = `<h1>Hello ${name}</h1>`;
+                greetingEl.innerHTML = `
+                    <h2>Hello, ${name}!</h2>
+                    <p style="color: var(--neon-blue)">A Christmas greeting for you from Given.</p>
+                `;
             }
         }
-
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
         document.getElementById('step' + stepNum).classList.add('active');
     }
 
-    function saveChoice(key, value) {
-        choices[key] = value;
+    function handleCompany(who) {
+        choices.company = who;
+        if (who === 'Given') {
+            alert('🚨 Secret Instruction: Text Given the secret code "👁️" (Eye emoji)');
+        }
+        nextStep(3);
     }
 
     function saveVibe() {
@@ -225,14 +207,13 @@
         const summary = document.getElementById('summaryText');
         
         summary.innerHTML = `
-            <strong>Name:</strong> ${choices.name}<br>
+            <strong>Dreamer:</strong> ${choices.name}<br>
             <strong>Company:</strong> ${choices.company}<br>
-            <strong>Atmosphere:</strong> ${choices.weather} during ${choices.time}<br>
-            <strong>Location:</strong> The beautiful landscapes of ${choices.country}
-            <p style="margin-top:15px; border-top: 1px solid #444; pt-10px">
-                Your perfect Christmas is a neon-lit adventure in ${choices.country}, 
-                surrounded by ${choices.company} while it's ${choices.weather.toLowerCase()}.
-            </p>
+            <strong>Vibe:</strong> ${choices.weather} during ${choices.time}<br>
+            <strong>Location:</strong> ${choices.country}
+            <hr style="border: 0; border-top: 1px solid #444; margin: 15px 0;">
+            <p>Your dream Christmas is set in the neon glow of ${choices.country} with ${choices.company}. 
+            The air is ${choices.weather.toLowerCase()} as you enjoy ${choices.time.toLowerCase()}.</p>
         `;
         nextStep(5);
     }
