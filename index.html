@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Dream Christmas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #2c3e50;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 { color: #d42426; }
+        .step { display: none; }
+        .step.active { display: block; }
+        input[type="text"], select {
+            width: 80%;
+            padding: 10px;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #16a085;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover { background-color: #148f77; }
+        .choice-img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 4px solid transparent;
+            transition: 0.3s;
+        }
+        .choice-img:hover { border-color: #d42426; }
+        .special-msg {
+            color: #d42426;
+            font-weight: bold;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎄 My Dream Christmas 🎁</h1>
+    <hr>
+
+    <div id="step1" class="step active">
+        <h3>To start, what is your name?</h3>
+        <input type="text" id="userName" placeholder="Enter your name...">
+        <br>
+        <button onclick="nextStep(2)">Next</button>
+    </div>
+
+    <div id="step2" class="step">
+        <h3 id="greeting"></h3>
+        <p>Who would you like to spend Christmas with?</p>
+        <div style="display: flex; justify-content: space-around; gap: 10px;">
+            <div onclick="nextStep(3)">
+                <img src="https://images.unsplash.com/photo-1543589077-47d81606c1ad?auto=format&fit=crop&w=300&q=80" alt="Alone" class="choice-img">
+                <p>Spending it Alone</p>
+            </div>
+            <div onclick="nextStep(3)">
+                <img src="https://images.unsplash.com/photo-1575467678930-a73981bc3999?auto=format&fit=crop&w=300&q=80" alt="Family" class="choice-img">
+                <p>Family & Friends</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="step3" class="step">
+        <h3>Where is your dream Christmas destination?</h3>
+        <select id="country">
+            <option value="Japan">Japan 🇯🇵</option>
+            <option value="Finland">Finland (Lapland) 🇫🇮</option>
+            <option value="USA">USA (New York City) 🇺🇸</option>
+            <option value="Switzerland">Switzerland 🇨🇭</option>
+            <option value="UK">United Kingdom 🇬🇧</option>
+        </select>
+        <br>
+        <button onclick="finish()">Create My Dream</button>
+    </div>
+
+    <div id="step4" class="step">
+        <h2>Your Dream Christmas is Ready!</h2>
+        <p id="summaryText"></p>
+        <p>✨ Merry Christmas! ✨</p>
+        <button onclick="location.reload()">Start Over</button>
+    </div>
+</div>
+
+<script>
+    let nameData = "";
+
+    function nextStep(stepNum) {
+        if (stepNum === 2) {
+            nameData = document.getElementById('userName').value.trim();
+            const greetingEl = document.getElementById('greeting');
+            
+            // Special logic for Anamila or Amila
+            if (nameData.toLowerCase() === "anamila" || nameData.toLowerCase() === "amila") {
+                greetingEl.innerHTML = `Hello ${nameData}, <div class="special-msg">From Given</div>`;
+            } else {
+                greetingEl.innerText = `Hello ${nameData}!`;
+            }
+        }
+
+        // Hide all steps, show current
+        document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+        document.getElementById('step' + stepNum).classList.add('active');
+    }
+
+    function finish() {
+        const country = document.getElementById('country').value;
+        const summary = document.getElementById('summaryText');
+        summary.innerText = `It looks like ${nameData} is heading to ${country} for a magical Christmas!`;
+        
+        nextStep(4);
+    }
+</script>
+
+</body>
+</html>
